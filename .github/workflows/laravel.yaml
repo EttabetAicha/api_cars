@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - master
+      - master  # You can change this to your main branch name
 
 jobs:
   build:
@@ -11,18 +11,18 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3  # Updated to the latest version (v3)
 
       - name: Set up PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@v2  # Latest version is still v2
+        with:
+          php-version: '8.3'  # You can change this to your desired PHP version
+          extensions: mbstring, pdo, pdo_mysql  # Add any additional extensions needed
+
+      - name: Install Composer dependencies (with caching)
+        uses: shivammathur/composer-cache@v2  # Consider using composer caching
         with:
           php-version: '8.3'
-          extensions: mbstring, pdo, pdo_mysql
-
-      - name: Install Composer dependencies
-        run: composer install --no-interaction --no-progress --prefer-dist
 
       - name: Run PHPUnit tests
         run: vendor/bin/phpunit
-
-
