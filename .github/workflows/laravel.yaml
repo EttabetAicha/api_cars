@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - master  # You can change this to your main branch name
+      - master
 
 jobs:
   build:
@@ -11,15 +11,16 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3  # Updated to the latest version (v3)
+        uses: actions/checkout@v3
 
       - name: Set up PHP
-        uses: shivammathur/setup-php@v2  # Latest version is still v2
+        uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'  # You can change this to your desired PHP version
-          extensions: mbstring, pdo, pdo_mysql  # Add any additional extensions needed
+          php-version: '8.3'
+          extensions: mbstring, pdo, pdo_mysql
 
-      
+      - name: Install dependencies (optional but recommended)
+        run: composer install
 
       - name: Run PHPUnit tests
         run: vendor/bin/phpunit
