@@ -14,8 +14,8 @@ jobs:
 
     - name: ️ Build website (if applicable)
       run: |
-        npm install
-        npm run build
+        npm install  # Replace with your build commands if needed
+        npm run build  # Replace with your build commands if needed
 
     - name:  Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
