@@ -1,7 +1,7 @@
 name: CI/CD Pipeline
 
 on:
-  push_request:
+  push:
     branches:
       - master
 
