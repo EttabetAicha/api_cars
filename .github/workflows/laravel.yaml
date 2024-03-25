@@ -1,16 +1,25 @@
-on: push
-name: 🚀 Deploy website on push
+name:  Deploy website on push
+
+on:
+  push:
+    branches: [ main ]
+
 jobs:
   web-deploy:
-    name: 🎉 Deploy
+    name:  Deploy
     runs-on: ubuntu-latest
     steps:
-    - name: 🚚 Get latest code
+    - name:  Get latest code
       uses: actions/checkout@v2.3.2
 
-    - name: 📂 Sync files
+    - name: ️ Build website (if applicable)
+      run: |
+        npm install
+        npm run build
+
+    - name:  Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
-        server: ftp://labo-snce.com
-        username: u820736800.benmade.coders-strike.tech
-        password: Au58hii-a_pS?Bm
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
