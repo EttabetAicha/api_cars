@@ -1,41 +1,16 @@
-name: CI/CD Pipeline
-
-on:
-  push:
-    branches:
-      - master
-
+on: push
+name: 🚀 Deploy website on push
 jobs:
-  build:
+  web-deploy:
+    name: 🎉 Deploy
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v2.3.2
 
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.3'
-          extensions: mbstring, pdo, pdo_mysql
-
-      - name: Install Composer dependencies
-        run: composer install --no-interaction --no-progress --prefer-dist
-
-      - name: Run PHPUnit tests
-        run: vendor/bin/phpunit
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-
-    steps:
-      - name: Deploy to production
-        uses: easingthemes/ssh-deploy@v2.0.0
-        with:
-          server: ${{ secrets.DEPLOY_SERVER }}
-          username: ${{ secrets.DEPLOY_USERNAME }}
-          password: ${{ secrets.DEPLOY_PASSWORD }}
-          local_path: './'
-          server_path: '/var/www/html'
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      with:
+        server: ftp.samkirkland.com
+        username: myFtpUserName
+        password: ${{ secrets.ftp_password }}
