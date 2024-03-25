@@ -22,5 +22,8 @@ jobs:
       - name: Install dependencies (optional but recommended)
         run: composer install
 
+      - name: Generate Laravel application key (optional)
+        run: php artisan key:generate --env=testing  # Adjust for your environment
+
       - name: Run PHPUnit tests
         run: vendor/bin/phpunit
