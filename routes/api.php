@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/cars/{id}', [CarController::class, 'show']);
     Route::put('/cars/{id}', [CarController::class, 'update']);
     Route::delete('/cars/{id}', [CarController::class, 'destroy']);
+    //CRUD routes for users 
 
-
+    Route::post('/users', [UserController::class, 'store']);
+    Route::get('/users/{id}', [UserController::class, 'show']);
+    Route::put('/users/{id}', [UserController::class, 'update']);
+    Route::delete('/users/{id}', [UserController::class, 'destroy']);
 });

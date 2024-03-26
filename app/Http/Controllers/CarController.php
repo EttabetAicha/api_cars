@@ -14,58 +14,6 @@ class CarController extends Controller
         return response()->json($cars);
     }
 
-    public function store(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'brand' => 'required|string',
-            'model' => 'required|string',
-            'mileage' => 'required|integer',
-            'registration_date' => 'required|date',
-            'power' => 'required|integer',
-            'fuel' => 'required|string',
-            'engine' => 'required|string',
-            'options' => 'nullable|string',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
-        }
-
-        $car = Car::create($request->all());
-
-        return response()->json($car, 201);
-    }
-
-    public function show($id)
-    {
-        $car = Car::select('id', 'brand', 'model', 'mileage', 'registration_date', 'power', 'fuel', 'engine', 'options')
-            ->findOrFail($id);
-
-        return response()->json($car);
-    }
-
-    public function update(Request $request, $id)
-    {
-        $validator = Validator::make($request->all(), [
-            'brand' => 'required|string',
-            'model' => 'required|string',
-            'mileage' => 'required|integer',
-            'registration_date' => 'required|date',
-            'power' => 'required|integer',
-            'fuel' => 'required|string',
-            'engine' => 'required|string',
-            'options' => 'nullable|string',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
-        }
-
-        $car = Car::findOrFail($id);
-        $car->update($request->all());
-
-        return response()->json($car, 200);
-    }
 
     public function destroy($id)
     {
