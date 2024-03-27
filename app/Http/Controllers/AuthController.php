@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-use Illuminate\Validation\ValidationException; // Add this import
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -19,7 +19,6 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            // Return validation error response with status code 422
             throw ValidationException::withMessages($validator->errors()->toArray());
         }
 

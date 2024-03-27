@@ -35,5 +35,26 @@ class CarControllerTest extends TestCase
     }
 
     /** @test */
-   
+    public function testEstimationPrix()
+    {
+        $data = [
+            'marque' => 'Toyota',
+            'modele' => 'Corolla',
+            'kilometrage' => 100000,
+            'date_mise_en_circulation' => '2018-01-01',
+            'puissance' => 150,
+            'carburant' => 'Essence',
+            'motorisation' => 'Automatique',
+            'options' => 'Climatisation, GPS',
+        ];
+
+        $response = $this->json('POST', '/api/estimatePrix', $data);
+
+        $response->assertStatus(Response::HTTP_OK);
+
+        $response->assertJsonStructure(['prix_estime']);
+
+       
+        $response->assertJson(['prix_estime' => $response->json('prix_estime')]);
+    }
 }

@@ -23,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::resource('users', UserController::class);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/cars', [CarController::class, 'index']);
+Route::post('/estimatePrix', [CarController::class, 'estimatePrix']);
