@@ -46,7 +46,7 @@ class User extends Authenticatable
     ];
     public function cars()
     {
-        return $this->belongsToMany(Car::class);
+        return $this->belongsToMany(Voiture::class);
     }
     public function hasRole($role)
     {

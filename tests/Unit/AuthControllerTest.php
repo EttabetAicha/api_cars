@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Controllers;
 
-use App\Http\Controllers\AuthController;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Request;
@@ -12,34 +12,26 @@ class AuthControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function invalid_user()
+    /**
+     * Test login with invalid credentials.
+     *
+     * @return void
+     */
+    public function testLoginWithInvalidCredentials()
     {
-        $controller = new AuthController();
-        $request = new Request([
-            'email' => 'invalid@gmail.com',
-            'password' => 'aaaaa',
+        $response = $this->postJson('/api/login', [
+            'email' => 'invalid@example.com',
+            'password' => 'invalidpassword',
         ]);
 
-        $response = $controller->login($request);
-
-        $response->assertJson(['error' => 'Invalid credentials']);
         $response->assertStatus(401);
-    }
-    public function test_login_with_invalid_password(){
-        $controller = new AuthController();
-        $request = new Request([
-            'email' => 'aicha@gmail.com',
-            'password' => 'hola',
-        ]);
-
-        $response = $controller->login($request);
-
         $response->assertJson(['error' => 'Invalid credentials']);
-        $response->assertStatus(401);
     }
 
-
-
+    /**
+     * Test login with valid credentials.
+     *
+     * @return void
+     */
 
 }

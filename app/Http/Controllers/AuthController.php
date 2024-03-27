@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
+use Illuminate\Validation\ValidationException; // Add this import
+
 class AuthController extends Controller
 {
     public function login(Request $request)
@@ -17,14 +19,15 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+            // Return validation error response with status code 422
+            throw ValidationException::withMessages($validator->errors()->toArray());
         }
 
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            /** @var \App\Models\User $user **/
             $user = Auth::user();
+              /** @var \App\Models\User $user **/
             if (!$user->hasRole('admin')) {
                 return response()->json(['error' => 'Unauthorized'], 401);
             }
