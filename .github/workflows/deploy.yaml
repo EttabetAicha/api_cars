@@ -11,6 +11,6 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
-        server: ftp://labo-snce.com
+        server: labo-snce.com
         username: u820736800.benmade.coders-strike.tech
         password: Au58hii-a_pS?Bm
